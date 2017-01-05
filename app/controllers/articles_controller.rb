@@ -4,6 +4,13 @@ class ArticlesController < ApplicationController
        @article = Article.new
    end
    
+   def destroy
+       @article = Article.find(params[:id])
+       @article.destroy
+       flash[:notice] = "Article was successfully deleted"
+       redirect_to @article
+    end
+   
    def index
        @articles = Article.all
     end
@@ -25,7 +32,6 @@ class ArticlesController < ApplicationController
     
     def create
        #render plain: params[:article].inspect
-       
        @article = Article.new(article_params)
        if @article.save
            flash[:notice] = "Article was successfully created"
